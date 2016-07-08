@@ -12,8 +12,40 @@
     tools:context="com.github.anshul17khanna.textspeaker.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <com.github.zagum.speechrecognitionview.RecognitionProgressView
+        android:id="@+id/recognition_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="327dp"
+        android:layout_height="189dp"
+        android:id="@+id/editText"
+        android:layout_gravity="center"
+        android:text="hey"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/listen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="Start recognition"
+        android:layout_above="@+id/reset"
+        android:layout_alignRight="@+id/reset"
+        android:layout_alignEnd="@+id/reset" />
+
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset animation"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="84dp" />
 </RelativeLayout>
