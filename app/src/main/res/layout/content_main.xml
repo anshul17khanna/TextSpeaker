@@ -22,30 +22,40 @@
 
     <EditText
         android:layout_width="327dp"
-        android:layout_height="189dp"
+        android:layout_height="150dp"
         android:id="@+id/editText"
         android:layout_gravity="center"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:hint="Your Text" />
+        android:gravity="center"
+        android:hint="Your Text"
+        android:layout_below="@+id/listen"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/listen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:text="Start recognition"
-        android:layout_above="@+id/reset"
-        android:layout_alignRight="@+id/reset"
-        android:layout_alignEnd="@+id/reset" />
+        android:text="STT"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
     <Button
         android:id="@+id/reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reset animation"
+        android:text="Reset"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="84dp" />
+        android:layout_marginBottom="94dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TTS"
+        android:id="@+id/speak"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
