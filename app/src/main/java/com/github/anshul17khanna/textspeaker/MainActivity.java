@@ -7,6 +7,7 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecognitionProgressView recognitionProgressView = (RecognitionProgressView) findViewById(R.id.recognition_view);
+        final RecognitionProgressView recognitionProgressView = (RecognitionProgressView) findViewById(R.id.recognition_view);
         recognitionProgressView.setSpeechRecognizer(speechRecognizer);
         recognitionProgressView.setRecognitionListener(new RecognitionListenerAdapter() {
             @Override
@@ -49,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
                 showResults(results);
             }
         });
+
+        int[] colors = {
+                ContextCompat.getColor(this, R.color.color1),
+                ContextCompat.getColor(this, R.color.color2),
+                ContextCompat.getColor(this, R.color.color3),
+                ContextCompat.getColor(this, R.color.color4),
+                ContextCompat.getColor(this, R.color.color5)
+        };
+        recognitionProgressView.setColors(colors);
+
+        int[] heights = {60, 76, 58, 80, 55};
+        recognitionProgressView.setBarMaxHeightsInDp(heights);
 
         recognitionProgressView.play();
 
@@ -61,9 +74,15 @@ public class MainActivity extends AppCompatActivity {
                 startRecognition();
             }
         });
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recognitionProgressView.stop();
+                recognitionProgressView.play();
+            }
+        });
     }
-
-
 
     private void startRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

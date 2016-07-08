@@ -25,9 +25,9 @@
         android:layout_height="189dp"
         android:id="@+id/editText"
         android:layout_gravity="center"
-        android:text="hey"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:hint="Your Text" />
 
     <Button
         android:id="@+id/listen"
