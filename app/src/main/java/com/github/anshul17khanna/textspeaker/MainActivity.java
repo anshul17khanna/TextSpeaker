@@ -28,15 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context);
 
-    Button listen = (Button) findViewById(R.id.listen);
-    Button reset = (Button) findViewById(R.id.reset);
-
-    final EditText editText = (EditText) findViewById(R.id.editText);
-
-    ToggleButton speechToggle = (ToggleButton) findViewById(R.id.speak);
-
-    CompoundButton.OnCheckedChangeListener toggleListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
         recognitionProgressView.setBarMaxHeightsInDp(heights);
 
         recognitionProgressView.play();
+
+        Button listen = (Button) findViewById(R.id.listen);
+        Button reset = (Button) findViewById(R.id.reset);
+
+        final EditText editText = (EditText) findViewById(R.id.editText);
+
+        ToggleButton speechToggle = (ToggleButton) findViewById(R.id.speak);
+
+        CompoundButton.OnCheckedChangeListener toggleListener;
 
         listen.setOnClickListener(new View.OnClickListener() {
             @Override
