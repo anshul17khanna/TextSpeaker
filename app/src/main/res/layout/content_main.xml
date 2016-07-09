@@ -50,12 +50,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="94dp" />
 
-    <Button
+    <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TTS"
         android:id="@+id/speak"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/listen"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:checked="false" />
+
 </RelativeLayout>

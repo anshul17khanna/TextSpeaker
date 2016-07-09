@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +12,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.github.zagum.speechrecognitionview.RecognitionProgressView;
 import com.github.zagum.speechrecognitionview.adapters.RecognitionListenerAdapter;
@@ -24,7 +25,17 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Context context = this;
+
     SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context);
+
+    Button listen = (Button) findViewById(R.id.listen);
+    Button reset = (Button) findViewById(R.id.reset);
+
+    final EditText editText = (EditText) findViewById(R.id.editText);
+
+    ToggleButton speechToggle = (ToggleButton) findViewById(R.id.speak);
+
+    CompoundButton.OnCheckedChangeListener toggleListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         recognitionProgressView.play();
 
-        Button listen = (Button) findViewById(R.id.listen);
-        Button reset = (Button) findViewById(R.id.reset);
-
         listen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +81,28 @@ public class MainActivity extends AppCompatActivity {
                 recognitionProgressView.play();
             }
         });
+
+        final Speaker speaker = new Speaker(context);
+
+        toggleListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+                if(isChecked){
+                    recognitionProgressView.stop();
+                    recognitionProgressView.play();
+                    startRecognition();
+                    speaker.allow(true);
+                    speaker.speak(editText.getText().toString());
+                }else{
+                    recognitionProgressView.stop();
+                    recognitionProgressView.play();
+                    startRecognition();
+                    speaker.speak(editText.getText().toString());
+                    speaker.allow(false);
+                }
+            }
+        };
+        speechToggle.setOnCheckedChangeListener(toggleListener);
     }
 
     private void startRecognition() {
@@ -85,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
     private void showResults(Bundle results) {
         ArrayList<String> matches = results
                 .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        // Toast.makeText(this, matches.get(0), Toast.LENGTH_LONG).show();
         EditText editText = (EditText) findViewById(R.id.editText);
         editText.setText(matches.get(0));
     }
