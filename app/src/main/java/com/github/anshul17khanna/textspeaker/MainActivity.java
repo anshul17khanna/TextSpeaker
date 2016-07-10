@@ -60,10 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button listen = (Button) findViewById(R.id.listen);
         Button reset = (Button) findViewById(R.id.reset);
+        Button speechToggle = (Button) findViewById(R.id.speechToggle);
 
         final EditText editText = (EditText) findViewById(R.id.editText);
-
-        ToggleButton speechToggle = (ToggleButton) findViewById(R.id.speak);
 
         CompoundButton.OnCheckedChangeListener toggleListener;
 
@@ -84,25 +83,15 @@ public class MainActivity extends AppCompatActivity {
 
         final Speaker speaker = new Speaker(context);
 
-        toggleListener = new CompoundButton.OnCheckedChangeListener() {
+        speechToggle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
-                if(isChecked){
-                    recognitionProgressView.stop();
-                    recognitionProgressView.play();
-                    startRecognition();
-                    speaker.allow(true);
-                    speaker.speak(editText.getText().toString());
-                }else{
-                    recognitionProgressView.stop();
-                    recognitionProgressView.play();
-                    startRecognition();
-                    speaker.speak(editText.getText().toString());
-                    speaker.allow(false);
-                }
+            public void onClick(View v) {
+                recognitionProgressView.stop();
+                recognitionProgressView.play();
+                speaker.allow(true);
+                speaker.speak(editText.getText().toString());
             }
-        };
-        speechToggle.setOnCheckedChangeListener(toggleListener);
+        });
     }
 
     private void startRecognition() {
