@@ -1,7 +1,12 @@
 package com.github.anshul17khanna.textspeaker;
 
+import android.annotation.TargetApi;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -14,8 +19,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.github.zagum.speechrecognitionview.RecognitionProgressView;
 import com.github.zagum.speechrecognitionview.adapters.RecognitionListenerAdapter;
@@ -58,13 +63,22 @@ public class MainActivity extends AppCompatActivity {
 
         recognitionProgressView.play();
 
-        Button listen = (Button) findViewById(R.id.listen);
+        ImageButton listen = (ImageButton) findViewById(R.id.listen);
         Button reset = (Button) findViewById(R.id.reset);
-        Button speechToggle = (Button) findViewById(R.id.speechToggle);
+        ImageButton speechToggle = (ImageButton) findViewById(R.id.speechToggle);
+        Button copy = (Button) findViewById(R.id.copy);
 
         final EditText editText = (EditText) findViewById(R.id.editText);
 
-        CompoundButton.OnCheckedChangeListener toggleListener;
+        final Speaker speaker = new Speaker(context);
+
+        int imageMicResource = getResources().getIdentifier("drawable/mic", null, getPackageName());
+        Drawable imageMic = getResources().getDrawable(imageMicResource);
+        listen.setBackground(imageMic);
+
+        int imageSpeakerResource = getResources().getIdentifier("drawable/speaker", null, getPackageName());
+        Drawable imageSpeaker = getResources().getDrawable(imageSpeakerResource);
+        speechToggle.setBackground(imageSpeaker);
 
         listen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,23 +87,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editText.setText("");
+                speechRecognizer.stopListening();
                 recognitionProgressView.stop();
                 recognitionProgressView.play();
             }
         });
 
-        final Speaker speaker = new Speaker(context);
-
         speechToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recognitionProgressView.stop();
-                recognitionProgressView.play();
+                speechRecognizer.stopListening();
                 speaker.allow(true);
                 speaker.speak(editText.getText().toString());
+            }
+        });
+
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("copiedText", editText.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show();
             }
         });
     }

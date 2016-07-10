@@ -22,23 +22,13 @@
 
     <EditText
         android:layout_width="327dp"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:id="@+id/editText"
         android:layout_gravity="center"
         android:gravity="center"
         android:hint="Your Text"
-        android:layout_below="@+id/listen"
+        android:layout_below="@+id/speechToggle"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/listen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:text="STT"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 
     <Button
@@ -53,10 +43,26 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TTS"
+        android:text="copy"
+        android:id="@+id/copy"
+        android:layout_below="@+id/editText"
+        android:layout_alignLeft="@+id/reset"
+        android:layout_alignStart="@+id/reset" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listen"
+        android:layout_above="@+id/editText"
+        android:layout_alignLeft="@+id/recognition_view"
+        android:layout_alignStart="@+id/recognition_view" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/speechToggle"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/recognition_view"
+        android:layout_alignEnd="@+id/recognition_view" />
 
 </RelativeLayout>
