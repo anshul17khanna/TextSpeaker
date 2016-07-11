@@ -22,7 +22,7 @@
 
     <EditText
         android:layout_width="327dp"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:id="@+id/editText"
         android:layout_gravity="center"
         android:gravity="center"
@@ -30,24 +30,6 @@
         android:layout_below="@+id/speechToggle"
         android:layout_centerHorizontal="true" />
 
-
-    <Button
-        android:id="@+id/reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reset"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="94dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="copy"
-        android:id="@+id/copy"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/reset"
-        android:layout_alignStart="@+id/reset" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -64,5 +46,22 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/recognition_view"
         android:layout_alignEnd="@+id/recognition_view" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reset"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="106dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/copy"
+        android:layout_below="@+id/editText"
+        android:layout_alignLeft="@+id/reset"
+        android:layout_alignStart="@+id/reset"
+        android:layout_marginLeft="8dp" />
 
 </RelativeLayout>

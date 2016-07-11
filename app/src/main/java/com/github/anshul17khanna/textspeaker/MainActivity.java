@@ -63,30 +63,57 @@ public class MainActivity extends AppCompatActivity {
 
         recognitionProgressView.play();
 
-        ImageButton listen = (ImageButton) findViewById(R.id.listen);
-        Button reset = (Button) findViewById(R.id.reset);
-        ImageButton speechToggle = (ImageButton) findViewById(R.id.speechToggle);
-        Button copy = (Button) findViewById(R.id.copy);
+        final ImageButton listen = (ImageButton) findViewById(R.id.listen);
+        final ImageButton reset = (ImageButton) findViewById(R.id.reset);
+        final ImageButton speechToggle = (ImageButton) findViewById(R.id.speechToggle);
+        final ImageButton copy = (ImageButton) findViewById(R.id.copy);
 
         final EditText editText = (EditText) findViewById(R.id.editText);
 
         final Speaker speaker = new Speaker(context);
 
-        int imageMicResource = getResources().getIdentifier("drawable/mic", null, getPackageName());
-        Drawable imageMic = getResources().getDrawable(imageMicResource);
-        listen.setBackground(imageMic);
+        int imageMicResource1 = getResources().getIdentifier("drawable/mic", null, getPackageName());
+        final Drawable imageMic1 = getResources().getDrawable(imageMicResource1);
+        listen.setBackground(imageMic1);
 
-        int imageSpeakerResource = getResources().getIdentifier("drawable/speaker", null, getPackageName());
-        Drawable imageSpeaker = getResources().getDrawable(imageSpeakerResource);
-        speechToggle.setBackground(imageSpeaker);
+        int imageMicResource2 = getResources().getIdentifier("drawable/mic1", null, getPackageName());
+        final Drawable imageMic2 = getResources().getDrawable(imageMicResource2);
+
+        int imageSpeakerResource1 = getResources().getIdentifier("drawable/speaker", null, getPackageName());
+        final Drawable imageSpeaker1 = getResources().getDrawable(imageSpeakerResource1);
+        speechToggle.setBackground(imageSpeaker1);
+
+        int imageSpeakerResource2 = getResources().getIdentifier("drawable/speaker1", null, getPackageName());
+        final Drawable imageSpeaker2 = getResources().getDrawable(imageSpeakerResource2);
+
+        int imageResetResource = getResources().getIdentifier("drawable/refresh", null, getPackageName());
+        Drawable imageReset = getResources().getDrawable(imageResetResource);
+        reset.setBackground(imageReset);
+
+        int imageCopyResource = getResources().getIdentifier("drawable/copy", null, getPackageName());
+        final Drawable imageCopy = getResources().getDrawable(imageCopyResource);
+        copy.setBackground(imageCopy);
 
         listen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(context, "Recording..", Toast.LENGTH_SHORT).show();
+                listen.setBackground(imageMic2);
                 startRecognition();
             }
         });
 
+        speechToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editText.getText().toString()!=null) {
+                    speechToggle.setBackground(imageSpeaker2);
+                    speechRecognizer.stopListening();
+                    speaker.allow(true);
+                    speaker.speak(editText.getText().toString());
+                }
+            }
+        });
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,15 +122,9 @@ public class MainActivity extends AppCompatActivity {
                 speechRecognizer.stopListening();
                 recognitionProgressView.stop();
                 recognitionProgressView.play();
-            }
-        });
-
-        speechToggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                speechRecognizer.stopListening();
-                speaker.allow(true);
-                speaker.speak(editText.getText().toString());
+                Toast.makeText(context, "Refreshed", Toast.LENGTH_SHORT).show();
+                listen.setBackground(imageMic1);
+                speechToggle.setBackground(imageSpeaker1);
             }
         });
 
@@ -115,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("copiedText", editText.getText().toString());
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Text Copied", Toast.LENGTH_SHORT).show();
             }
         });
     }
