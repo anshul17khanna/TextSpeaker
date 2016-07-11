@@ -16,10 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.github.zagum.speechrecognitionview.RecognitionProgressView;
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context);
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         recognitionProgressView.play();
 
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.layout);
+
         final ImageButton listen = (ImageButton) findViewById(R.id.listen);
         final ImageButton reset = (ImageButton) findViewById(R.id.reset);
         final ImageButton speechToggle = (ImageButton) findViewById(R.id.speechToggle);
@@ -71,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
         final EditText editText = (EditText) findViewById(R.id.editText);
 
         final Speaker speaker = new Speaker(context);
+
+        int imageBgResource = getResources().getIdentifier("drawable/background", null, getPackageName());
+        final Drawable imageBg = getResources().getDrawable(imageBgResource);
+        layout.setBackground(imageBg);
 
         int imageMicResource1 = getResources().getIdentifier("drawable/mic", null, getPackageName());
         final Drawable imageMic1 = getResources().getDrawable(imageMicResource1);
@@ -149,8 +155,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showResults(Bundle results) {
-        ArrayList<String> matches = results
-                .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+        ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         EditText editText = (EditText) findViewById(R.id.editText);
         editText.setText(matches.get(0));
     }

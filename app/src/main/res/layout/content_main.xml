@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.github.anshul17khanna.textspeaker.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:id="@+id/layout">
 
     <com.github.zagum.speechrecognitionview.RecognitionProgressView
         android:id="@+id/recognition_view"
